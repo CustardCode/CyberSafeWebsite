@@ -1,31 +1,332 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // Array of cyber facts to display
-  var facts = [
-    "Did you know? Regular password changes improve security.",
-    "Cybersecurity tip: Always verify email links before clicking.",
-    "Remember: Two-factor authentication adds an extra layer of protection.",
-    "Fact: Backing up your data regularly helps prevent data loss.",
-    "Tip: Keep your software updated to mitigate vulnerabilities."
-  ];
+/* Define our color variables for dark and light modes */
+:root {
+  /* Dark/Night Mode (default) */
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --navbar-bg: rgba(0, 0, 0, 0.8);
+  --card-bg: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+  --hover-border: #00adb5;
+  --accent-color: #00adb5; /* teal accent */
+  --highlight-color: #FFD700; /* yellow for bars */
+  --link-hover: #00adb5;
+  --button-primary-bg: #00adb5;
+  --button-primary-hover: #008c9b;
+  --button-secondary-bg: #007BFF;
+  --button-secondary-hover: #0056b3;
+  --footer-bg: #1a1a1a;
+  --testimonial-bg: #2a2a2a;
+  /* New: Hover for yellow buttons */
+  --highlight-hover: #e6c200;
+}
 
-  var factIndex = 0;
-  var factElement = document.querySelector("#cyber-facts p");
+.light-mode {
+  /* Light Mode Overrides */
+  --bg-color: #ffffff;
+  --text-color: #121212;
+  --navbar-bg: #f8f9fa;
+  --card-bg: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  --hover-border: #007BFF;
+  --accent-color: #007BFF; /* blue accent */
+  --highlight-color: #FFD700; /* yellow remains same */
+  --link-hover: #007BFF;
+  --button-primary-bg: #007BFF;
+  --button-primary-hover: #0056b3;
+  --button-secondary-bg: #00adb5;
+  --button-secondary-hover: #008c9b;
+  --footer-bg: #f8f9fa;
+  --testimonial-bg: #e0e0e0;
+  --highlight-hover: #e6c200;
+}
 
-  // Ensure the element supports fading by setting the transition
-  factElement.style.transition = "opacity 0.5s";
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  function updateFact() {
-    // Fade out the current fact
-    factElement.style.opacity = "0";
+/* Typography & Body */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    setTimeout(function() {
-      factElement.textContent = facts[factIndex];
-      factIndex = (factIndex + 1) % facts.length;
-      // Fade in the new fact
-      factElement.style.opacity = "1";
-    }, 500); // Delay matches the fade-out transition
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--navbar-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+.nav-links a:hover {
+  color: var(--link-hover);
+}
+#mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+  margin-left: 1rem;
+}
+#mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1a1a1a, #333333);
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Cyber Facts Banner */
+.cyber-facts {
+  background: var(--highlight-color);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+.cyber-facts p {
+  font-size: 1.2rem;
+  /* Set text color back to black */
+  color: black;
+}
+
+/* Sections */
+.section {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.section h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+/* Services Cards */
+.services-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  transition: transform 0.3s, border 0.3s;
+  border: 2px solid transparent;
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--hover-border);
+}
+.card i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+.card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+/* About Section */
+.about-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.about-container i {
+  font-size: 3rem;
+  margin-top: 1rem;
+  color: var(--accent-color);
+}
+
+/* Testimonials Section */
+.testimonials {
+  background: var(--testimonial-bg);
+  padding: 3rem 2rem;
+}
+.testimonials-header {
+  margin-bottom: 2rem;
+}
+.testimonials-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  margin-bottom: 0.25rem;
+}
+.testimonials-subheading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin: 0 auto 1rem;
+  max-width: 600px;
+}
+.testimonials-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.testimonial-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 30%;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.testimonial-card p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.client-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.client-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+  object-fit: cover;
+}
+.client-info h3 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin: 0;
+}
+.client-info span {
+  font-size: 0.75rem;
+  color: var(--highlight-color);
+}
+
+/* Contact Form */
+#contact-form {
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+#contact-form label {
+  font-weight: bold;
+}
+#contact-form input,
+#contact-form textarea {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+  font-size: 1rem;
+}
+#contact-form button {
+  /* Yellow background for the button */
+  background: var(--highlight-color);
+  /* Set text color back to black */
+  color: black;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#contact-form button:hover {
+  background: var(--highlight-hover);
+}
+.support-info p {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.support-info a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.btn.primary {
+  background: var(--button-primary-bg);
+  color: var(--bg-color);
+}
+.btn.primary:hover {
+  background: var(--button-primary-hover);
+}
+.btn.secondary {
+  background: var(--button-secondary-bg);
+  color: var(--bg-color);
+}
+.btn.secondary:hover {
+  background: var(--button-secondary-hover);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  background: var(--footer-bg);
+}
+footer p {
+  margin: 0.5rem 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
   }
-
-  // Rotate the fact every 4 seconds
-  setInterval(updateFact, 4000);
-});
+  .navbar {
+    justify-content: space-between;
+  }
+  .testimonials-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
