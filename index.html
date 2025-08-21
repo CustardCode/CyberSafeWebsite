@@ -1,191 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cyber Safe SW - Helping the South West stay cyber safe</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Safe SW - Helping the South West stay cyber safe</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="hero">
+    <nav class="navbar">
+      <div class="logo">Cyber Safe SW</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <!-- Dark/Light Mode Toggle Button -->
+      <button id="mode-toggle" aria-label="Toggle dark/light mode">
+        <i data-feather="sun"></i>
+      </button>
+    </nav>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Cyber Safe SW offers fast audits, scam awareness training, and help when things break. Cyber security in South West WA." />
-    <meta property="og:title" content="Cyber Safe SW" />
-    <meta property="og:description" content="Fast audits, scam awareness training, and help when things break. Trusted locally in South West WA." />
-    <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Favicon & Manifest -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="manifest" href="/manifest.json" />
-
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
-  </head>
-  <body>
-    <!-- Skip Link for Accessibility -->
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <!-- Header Section & Hero -->
-    <header class="hero">
-      <nav class="navbar">
-        <div class="logo">Cyber Safe SW</div>
-        <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <!-- Dark/Light Mode Toggle Button -->
-        <button id="mode-toggle" aria-label="Toggle dark/light mode">
-          <i data-feather="sun"></i>
-        </button>
-      </nav>
-
-      <div class="hero-content">
-        <h1>Helping the South West stay cyber safe</h1>
-        <p class="sub-headline">Fast audits, scam awareness training, and help when things break.</p>
-        <div class="cta-buttons">
-          <a href="#pricing" class="btn primary">Book an Audit</a>
-          <a href="tel:+61412804012" class="btn secondary">Call Now</a>
-        </div>
-      </div>
-
-      <!-- Trust Boosters Strip -->
-      <div class="trust-boosters">
-        <span>Locally owned in the South West</span>
-        <span>ABN: 12 345 678 901</span>
-        <span>Working With Children Check</span>
-        <span>Police Clearance</span>
-      </div>
-
+    <div class="hero-content">
+      <h1>Helping the South West stay cyber safe</h1>
       <!-- Cycling Cyber Facts Banner -->
       <div id="cyber-facts" class="cyber-facts">
-        <p>MFA blocks 99.9% of attacks.</p>
+        <!-- Editable content: Cyber facts will rotate here -->
+        <p>Cyber fact goes here...</p>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main id="main">
-      <!-- Testimonial Section -->
-      <section id="testimonials" class="section testimonials">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonial-container">
-          <blockquote>
-            “Cyber Safe SW transformed our security – highly recommended!”
-            <cite>– Auto Electrician</cite>
-          </blockquote>
-          <blockquote>
-            “Their auditing is fast, efficient, and trustworthy.”
-            <cite>– Café Owner</cite>
-          </blockquote>
-          <blockquote>
-            “A real lifesaver; our business feels much safer now.”
-            <cite>– Tradie</cite>
-          </blockquote>
-        </div>
-      </section>
-
-      <!-- Services Section -->
-      <section id="services" class="section">
-        <h2>Our Services</h2>
-        <div class="services-container">
-          <div class="card">
-            <i data-feather="shield"></i>
-            <h3>Security Audit</h3>
-            <p>
-              Comprehensive checks for vulnerabilities with actionable reports. <a href="#learnmore-audit">Learn more →</a>
-            </p>
-          </div>
-          <div class="card">
-            <i data-feather="book-open"></i>
-            <h3>Cyber Awareness Training</h3>
-            <p>
-              Engaging training sessions to protect against phishing and scams. <a href="#learnmore-training">Learn more →</a>
-            </p>
-          </div>
-          <div class="card">
-            <i data-feather="headphones"></i>
-            <h3>Ongoing Support</h3>
-            <p>
-              Continuous monitoring and on-call support to keep you secure. <a href="#learnmore-support">Learn more →</a>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Pricing / Packages Section -->
-      <section id="pricing" class="section pricing">
-        <h2>Pricing & Packages</h2>
-        <div class="pricing-container">
-          <div class="pricing-card">
-            <h3>Starter Audit</h3>
-            <p>From $399</p>
-          </div>
-          <div class="pricing-card">
-            <h3>Training Workshop</h3>
-            <p>From $499</p>
-          </div>
-          <div class="pricing-card">
-            <h3>Ongoing Support</h3>
-            <p>From $199/month</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- About Section -->
-      <section id="about" class="section">
-        <h2>About Us</h2>
-        <div class="about-container">
-          <img src="https://yourdomain.com/images/your-photo.jpg" alt="Photo of Custard Code" class="about-photo" />
+  <!-- Main Content -->
+  <main>
+    <!-- Services Section -->
+    <section id="services" class="section">
+      <h2>Our Services</h2>
+      <div class="services-container">
+        <div class="card">
+          <i data-feather="shield"></i>
+          <h3>Security Audit</h3>
           <p>
-            We are a local cybersecurity consultancy passionate about making regional WA safer. With deep local knowledge and commitment, we’re here to help individuals and small businesses.
+            Our comprehensive security audits are tailored for individuals and small businesses. We assess your existing digital infrastructure, perform vulnerability scans, and deliver a detailed report with actionable recommendations to strengthen your defenses against modern threats.
           </p>
-          <i data-feather="user"></i>
         </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="section">
-        <h2>Contact Us</h2>
-        <form name="contact" method="POST" data-netlify="true" id="contact-form">
-          <!-- For Netlify Forms -->
-          <input type="hidden" name="form-name" value="contact" />
-          
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your full name" required aria-invalid="false" />
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Your email address" required aria-invalid="false" />
-
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="How can we help you?" required aria-invalid="false"></textarea>
-
-          <button type="submit">Send Message</button>
-          <div id="form-response" class="form-response"></div>
-        </form>
-        <!-- Optional: Support contact info -->
-        <div class="support-info">
-          <p>Call us at: <a href="tel:+61412804012">0412 804 012</a></p>
-          <p>Email: <a href="mailto:Joshberndt@outlook.com">Joshberndt@outlook.com</a></p>
+        <div class="card">
+          <i data-feather="book-open"></i>
+          <h3>Cyber Awareness Training</h3>
+          <p>
+            Participate in our interactive and up-to-date training sessions designed to educate non-tech-savvy users on recognizing suspicious emails, understanding secure password practices, and implementing multi-factor authentication so you can fend off cyberattacks confidently.
+          </p>
         </div>
-      </section>
-    </main>
+        <div class="card">
+          <i data-feather="headphones"></i>
+          <h3>Ongoing Support</h3>
+          <p>
+            We provide continuous cybersecurity monitoring and timely technical support. Whether it’s troubleshooting issues, patching vulnerabilities, or ensuring your software is current, our team is available to deliver prompt assistance and maintain optimal digital security.
+          </p>
+        </div>
+        <div class="card">
+          <i data-feather="thumbs-up"></i>
+          <h3>Consulting</h3>
+          <p>
+            Leverage our expert consulting services for bespoke cybersecurity strategies. From one-off consultations to ongoing strategic advice, we work with you to implement robust security measures that blend seamlessly with your business operations.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 Cyber Safe SW. All rights reserved.</p>
-      <p>ABN: 12 345 678 901 | Serving Bunbury, Eaton, Busselton, Dunsborough, Augusta – Margaret River</p>
-      <p>
-        <a href="mailto:Joshberndt@outlook.com">Email Us</a> |
-        <a href="tel:+61412804012">Call Us</a>
-      </p>
-    </footer>
+    <!-- About Section -->
+    <section id="about" class="section">
+      <h2>About Us</h2>
+      <div class="about-container">
+        <!-- Editable content: About description -->
+        <p>
+          We are a local cybersecurity consultancy passionate about helping the South West stay secure. Our focus is on simplicity, affordability, and building trust with non-tech-savvy users and small businesses.
+        </p>
+        <i data-feather="user"></i>
+      </div>
+    </section>
 
-    <!-- Link to external JS -->
-    <script src="script.js"></script>
-    <script>
-      feather.replace();
-    </script>
-  </body>
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2>Contact Us</h2>
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your email address" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Helping the South West stay cyber safe" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+      <!-- Optional: Support contact info -->
+      <div class="support-info">
+        <p>Call us at: <a href="tel:+61412804012">0412 804 012</a></p>
+        <p>Email: <a href="mailto:Joshberndt@outlook.com">Joshberndt@outlook.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Cyber Safe SW. All rights reserved.</p>
+  </footer>
+
+  <!-- Link to external JS -->
+  <script src="script.js"></script>
+  <script>
+    feather.replace();
+  </script>
+</body>
 </html>
