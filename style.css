@@ -23,7 +23,6 @@ body.light-mode {
 /* Navbar */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   background: rgba(0, 0, 0, 0.8);
@@ -32,21 +31,21 @@ body.light-mode {
   z-index: 10;
 }
 
-body.light-mode .navbar {
-  background: rgba(255, 255, 255, 0.95);
-}
-
+/* Logo */
 .navbar .logo {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
+/* Navigation Links */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 2rem;
+  margin-left: auto; /* Push links toward the right */
 }
 
+/* Navigation Links Hover */
 .nav-links a {
   text-decoration: none;
   color: inherit;
@@ -65,6 +64,7 @@ body.light-mode .navbar {
   color: inherit;
   font-size: 1.2rem;
   transition: transform 0.3s;
+  margin-left: 1rem; /* Spacing between nav-links and the toggle */
 }
 
 #mode-toggle:hover {
@@ -106,7 +106,7 @@ body.light-mode .navbar {
   font-size: 2rem;
 }
 
-/* Services Cards: Vertical layout and cyber-inspired styling */
+/* Services Containers and Cards */
 .services-container {
   display: flex;
   flex-direction: column;
@@ -174,14 +174,17 @@ body.light-mode .navbar {
   font-size: 1rem;
 }
 
-/* Adjust placeholder fonts to be consistent */
-#contact-form input::placeholder,
-#contact-form textarea::placeholder {
+/* Adjust placeholder fonts separately */
+#contact-form input::placeholder {
   font-size: 1rem;
 }
 
+#contact-form textarea::placeholder {
+  font-size: 0.9rem; /* Slightly smaller font for the message placeholder */
+}
+
 #contact-form button {
-  background: #22c55e; /* Updated send message button color */
+  background: #22c55e;
   color: #fff;
   border: none;
   padding: 0.8rem;
@@ -195,10 +198,11 @@ body.light-mode .navbar {
   background: #1fa152;
 }
 
-/* Support Info - improve visibility by increasing font size and setting link color */
+/* Support Info */
 .support-info p {
   margin-top: 0.5rem;
   font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .support-info a {
@@ -218,6 +222,7 @@ footer {
   .nav-links {
     display: none;
   }
+  /* Navbar adjustments for small screens */
   .navbar {
     justify-content: space-between;
   }
