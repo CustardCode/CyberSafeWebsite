@@ -115,8 +115,7 @@ body {
 }
 .cyber-facts p {
   font-size: 1.2rem;
-  /* Set text color back to black */
-  color: black;
+  color: black; /* ensure contrast on yellow */
 }
 
 /* Sections */
@@ -259,9 +258,7 @@ body {
   font-size: 1rem;
 }
 #contact-form button {
-  /* Yellow background for the button */
   background: var(--highlight-color);
-  /* Set text color back to black */
   color: black;
   border: none;
   padding: 0.8rem;
@@ -315,6 +312,26 @@ footer {
 }
 footer p {
   margin: 0.5rem 0;
+}
+
+/* Social Icons */
+.social-icons {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.social-icons a {
+  color: var(--text-color);
+  transition: color 0.3s, transform 0.3s;
+}
+.social-icons a:hover {
+  color: var(--link-hover);
+  transform: scale(1.1);
+}
+.social-icons i {
+  width: 24px;
+  height: 24px;
 }
 
 /* Responsive Styles */
