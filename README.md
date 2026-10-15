@@ -42,7 +42,7 @@ The build writes files only inside this project. It does not remove directories 
 
 ## Current business configuration
 
-Phone: **0409 224 814**, linked as `tel:+61409224814`. The intended email is contact@cybersafesw.com, with mailbox setup pending. Social URLs are empty. Online form delivery and analytics are disabled. The form validates and downloads a local text draft; it does not send a message. Telephone contact is available throughout the site.
+Phone: **0409 224 814**, linked as `tel:+61409224814`. The public email is contact@cybersafesw.com. The owner has tested receiving and replying; the GoDaddy primary-address/display-name update is processing. Social URLs are empty. The enquiry form validates the details and opens a mailto draft in the visitor’s email app. The visitor reviews and sends it there. The server-side Resend delivery switch and analytics remain disabled. A local text draft can also be saved. Telephone contact remains available throughout the site.
 
 `business.emailReady` must remain false until the mailbox is verified. `business.contactEnabled` must remain false until the host's real email function is configured and tested. Analytics only loads after explicit consent and only with a valid configured GA4 ID. No form contents are passed to analytics. See `DEPLOYMENT.md` for activation.
 

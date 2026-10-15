@@ -28,15 +28,15 @@ Netlify rejected adding `cybersafesw.com`: **Another project is already using th
 
 A public DNS snapshot was saved locally before changes. It is not a full GoDaddy zone export. Observed apex A records were `75.2.60.5` and `99.83.190.102`; nameservers remain `ns13.domaincontrol.com` and `ns14.domaincontrol.com`. Microsoft 365 mail MX is already present. No DNS changes have been made by this launch workflow.
 
-Josh authorised a Netlify domain-release support request. Netlify's support form requires a new, short-lived TXT proof before submission. Verification and submission are pending Josh's GoDaddy DNS step. Use the live form's exact current record; do not invent a ticket number or assume the domain has been released.
+Josh authorised a Netlify domain-release support request. Netlify's support form requires a new, short-lived TXT proof before submission. Josh added the exact TXT record. Netlify confirmed ownership, the release request was submitted, and Josh replied to its acknowledgement. Release is still pending; the current UI continues to reject adding the domain. Use the live form's exact current record; do not invent a ticket number or assume the domain has been released.
 
 After release, add apex/www to this project, obtain exact DNS instructions from the project, preserve mailbox/authentication DNS, choose apex as primary and confirm the www redirect and HTTPS certificate. The earlier custom domain had a certificate-name mismatch; do not bypass TLS validation.
 
 ## Email and form pending
 
-GoDaddy screenshots confirm Microsoft 365 Email Essentials with Security, primary `joshua@cybersafesw.com`, and `contact@cybersafesw.com` as an alias routing into that mailbox. Actual receiving/sending/replying and recovery/MFA are not yet verified. The user wants Contact as the public identity; primary-address rename remains to be resolved if needed.
+GoDaddy screenshots confirm Microsoft 365 Email Essentials with Security, primary `joshua@cybersafesw.com`, and `contact@cybersafesw.com` as an alias routing into that mailbox. Josh tested receiving and replying successfully; the reply used the Joshua primary address and landed in the recipient’s Junk folder. He then requested Contact as the primary address and CyberSafe SW as the display name; GoDaddy is processing that change, and the new sign-in is not yet confirmed. Recovery/MFA and outgoing deliverability still need review. Josh asked us to proceed with mailto contact while the update processes.
 
-`emailReady:false` and `contactEnabled:false` remain truthful. Phone contact works throughout. Resend is prepared in code but no sending account/domain/API key has been configured. Do not enable delivery until real arrival and reply-to are tested. See DEPLOYMENT.md. Optional analytics is disabled; Search Console verification/submission is pending the custom-domain launch.
+`emailReady:true` reflects the owner-tested receiving address. Email links target `mailto:contact@cybersafesw.com`; the enquiry form opens a prefilled email draft and explicitly requires the visitor to send it in their email app. The website does not report delivery. `contactEnabled:false` keeps server-side Resend sending inactive. Phone contact works throughout. Resend is prepared in code but no sending account/domain/API key has been configured. Do not enable delivery until real arrival and reply-to are tested. See DEPLOYMENT.md. Optional analytics is disabled; Search Console verification/submission is pending the custom-domain launch.
 
 ## Future updates and rollback
 
