@@ -1,0 +1,21 @@
+# CyberSafe SW maintenance
+
+Preserve the approved visual design unless Josh requests a design change.
+
+The production source is `CustardCode/CyberSafeWebsite`, branch `main`. Netlify builds `dist/` with Node 24 and deploys `netlify/functions/`. The legacy root `index.html`, `style.css`, `script.js` and `images/` are retained for history; edit `src/` and `public/assets/` for the current website.
+
+Before publishing a change, run:
+
+```
+node scripts/build.ts
+node scripts/check.mjs
+node --test tests/contact.test.mjs
+```
+
+For a visible change, inspect the affected pages at desktop and mobile widths. Preserve accessibility, readable contrast, phone links, metadata and the real sample PDF.
+
+Never commit passwords, API keys or private environment files. Store delivery credentials in Netlify's server-side environment settings. Keep `emailReady` false until mailbox delivery is verified and `contactEnabled` false until real form arrival and reply-to have been tested. A provider acceptance response alone does not prove inbox arrival. Keep analytics disabled unless Josh requests it.
+
+Use a branch and pull request for reviewable changes. Production deploys follow `main`; a merged change can publish automatically. Netlify deploy rollback restores a prior site build; check environment settings separately. Preserve `archive/pre-launch-2026-10-15` and the old site's history.
+
+Do not change domain nameservers, transfer the domain, purchase products or alter subscriptions without Josh's approval. Preserve email DNS when changing website DNS. Consult `DEPLOYMENT.md` and the current launch record before changing integrations.
