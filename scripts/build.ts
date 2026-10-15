@@ -10,12 +10,18 @@ import {layout,mark,esc} from '../src/components.ts';
 import {business} from '../src/config.ts';
 const root=resolve(import.meta.dirname,'..'),dist=resolve(root,'dist'),assets=resolve(root,'public/assets');
 await mkdir(dist,{recursive:true});await mkdir(assets,{recursive:true});
+// Content-based names ensure a returning visitor gets matching CSS and JavaScript.
+const versionedAssets=await Promise.all(['main.js','style.css'].map(async name=>{
+ const content=await readFile(resolve(assets,name));const dot=name.lastIndexOf('.');
+ const filename=name.slice(0,dot)+'.'+createHash('sha256').update(content).digest('hex').slice(0,12)+name.slice(dot);
+ return {name,filename,content};
+}));
 const pages:Page[]=[{path:'/',title:'Cyber Security Bunbury & South West WA | CyberSafe SW',description:'Practical cyber security check-ups for homes and small businesses in Bunbury and South West WA. Onsite assessments, clear reports and straightforward advice.',body:home()},...commercialPages(),...infoPages(),...articlePages(),reportPage()];
 const hashes=new Set<string>();
 for(const page of pages){
  const schema=[...(page.schema||[])];if(page.path!=='/')schema.push({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:business.domain},{'@type':'ListItem',position:2,name:page.title.split(' | ')[0],item:business.domain+page.path}]});
  const body=page.body.replace('style="font-size:27px;margin-bottom:18px"','class="form-title"').replace('class="note" style="margin-top:0"','class="note launch-notice"').replace('style="text-decoration:underline"','class="underlined"');
- const html=layout(page.path,page.title,page.description,body,{schema,noindex:page.noindex});
+ const html=versionedAssets.reduce((html,asset)=>html.replaceAll('/assets/'+asset.name+'"','/assets/'+asset.filename+'"'),layout(page.path,page.title,page.description,body,{schema,noindex:page.noindex}));
  const scripts=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];for(const s of scripts)hashes.add("'sha256-"+createHash('sha256').update(s[1]).digest('base64')+"'");
  const folder=page.path==='/'?dist:resolve(dist,'.'+page.path);if(page.path==='/404')await writeFile(resolve(dist,'404.html'),html);else{await mkdir(folder,{recursive:true});await writeFile(resolve(folder,'index.html'),html);}
 }
@@ -28,6 +34,7 @@ const titles=['An extra layer|for your accounts.','Five useful checks.|A stronge
 for(const [i,a] of articles.entries())await writeFile(resolve(assets,'social-'+a.slug+'.svg'),social(titles[i],a.category));
 await writeFile(resolve(root,'report-data.json'),JSON.stringify(findings,null,2));
 await cp(resolve(root,'public'),dist,{recursive:true});
+for(const asset of versionedAssets)await writeFile(resolve(dist,'assets',asset.filename),asset.content);
 const paths=pages.filter(p=>!p.noindex).map(p=>p.path);
 await writeFile(resolve(dist,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map(p=>`<url><loc>${business.domain+(p==='/'?'':p)}</loc></url>`).join('')}</urlset>`);
 await writeFile(resolve(dist,'robots.txt'),`User-agent: *\nAllow: /\nSitemap: ${business.domain}/sitemap.xml\n`);
@@ -35,3 +42,4 @@ const csp=`default-src 'self'; script-src 'self' ${[...hashes].join(' ')} https:
 await writeFile(resolve(dist,'_headers'),`/*\n  Content-Security-Policy: ${csp}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Strict-Transport-Security: max-age=31536000\n/assets/*\n  Cache-Control: public, max-age=3600\n`);
 await writeFile(resolve(root,'build-manifest.json'),JSON.stringify({pages:pages.map(({path,title,noindex})=>({path,title,indexable:!noindex})),csp},null,2));
 console.log(`Built ${pages.length} static pages, sitemap, robots, SVG branding and security headers in ${dist}`);
+
