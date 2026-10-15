@@ -1,5 +1,7 @@
 # CyberSafe SW
 
+Current deployment details and outstanding domain/email steps are recorded in [LAUNCH-STATUS.md](LAUNCH-STATUS.md). GitHub main is connected to the Netlify project cybersafesw; the approved site is public at https://cybersafesw.netlify.app/.
+
 A complete static website for Josh's onsite cybersecurity service in Bunbury and South West WA. Includes 20 content pages, a 404 page, an interactive report viewer, the six-page fictional sample PDF, SVG identity and branded PNG social previews.
 
 ## Run locally
@@ -76,7 +78,7 @@ When registry access returns, create a separate Astro branch/directory. Install 
 
 ## Before publishing
 
-Read `LAUNCH-CHECKLIST.md`, `DEPLOYMENT.md`, `SEO-ROADMAP.md` and `BRAND-GUIDE.md`. This work is local-only. No site registration, public upload, live DNS edit, domain transfer or production deployment has been performed.
+Read `LAUNCH-STATUS.md`, `LAUNCH-CHECKLIST.md`, `DEPLOYMENT.md`, `SEO-ROADMAP.md` and `BRAND-GUIDE.md`. The approved site has been published to Netlify with Josh's authorisation. Custom-domain and email-delivery activation remain subject to the verified status in `LAUNCH-STATUS.md`.
 
 ## Optional browser regression check
 
