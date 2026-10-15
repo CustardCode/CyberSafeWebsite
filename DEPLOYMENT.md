@@ -1,5 +1,7 @@
 # Deployment and GoDaddy domain connection
 
+For the actual GitHub/Netlify project and current launch status, read `LAUNCH-STATUS.md` first. Josh has authorised publication and the necessary website DNS changes; the older approval wording below describes the original pre-launch preparation.
+
 ## Recommended host
 
 **Netlify**, using the static `dist/` output plus the included serverless contact function. This fits the site's static pages, clean URLs, HTTPS, security headers, Git deployments and rollback requirements without a server to maintain. Resend is the proposed email-delivery service; Josh must confirm the actual recipient and sender. Pricing and account limits must be checked when choosing a plan.
@@ -17,7 +19,7 @@ Create a Git repository for the contents of this project directory, including `p
 Settings are in `netlify.toml`:
 
 - Node version: **24**
-- Build command: `node scripts/build.ts`
+- Build command: `node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs`
 - Publish directory: `dist`
 - Functions directory: `netlify/functions`
 
