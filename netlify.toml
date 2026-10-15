@@ -1,0 +1,9 @@
+[build]
+  command = "node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs"
+  publish = "dist"
+  functions = "netlify/functions"
+[build.environment]
+  NODE_VERSION = "24"
+[functions]
+  node_bundler = "esbuild"
+# Static files and clean URLs are handled by Netlify; do not add an SPA fallback.

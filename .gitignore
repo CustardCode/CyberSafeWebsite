@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.netlify/
+
+/qa/
+build-manifest.json
+report-data.json
