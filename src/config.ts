@@ -1,6 +1,6 @@
 export const business = {
   name: 'CyberSafe SW', owner:'Josh', domain:'https://cybersafesw.com',
-  phone:'0409 224 814', phoneHref:'tel:+61409224814', email:'contact@cybersafesw.com', emailReady:false,
+  phone:'0409 224 814', phoneHref:'tel:+61409224814', email:'contact@cybersafesw.com', emailReady:true,
   location:'Bunbury, South West Western Australia', serviceAreas:['Bunbury','South West WA'],
   // Enable only after configuring and testing the deployed server-side email function.
   contactEnabled:false, contactEndpoint:'/.netlify/functions/contact',
