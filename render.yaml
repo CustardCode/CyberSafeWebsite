@@ -1,0 +1,68 @@
+{
+  "services": [
+    {
+      "type": "web",
+      "name": "cybersafesw",
+      "runtime": "static",
+      "repo": "https://github.com/CustardCode/CyberSafeWebsite",
+      "branch": "main",
+      "buildCommand": "node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs",
+      "staticPublishPath": "dist",
+      "autoDeployTrigger": "commit",
+      "domains": [
+        "cybersafesw.com"
+      ],
+      "envVars": [
+        {
+          "key": "NODE_VERSION",
+          "value": "24"
+        },
+        {
+          "key": "SKIP_INSTALL_DEPS",
+          "value": "true"
+        },
+        {
+          "key": "SITE_HOST",
+          "value": "Render"
+        }
+      ],
+      "headers": [
+        {
+          "path": "/*",
+          "name": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-WJTr2ksB+7+CJseyrDta9MHD6yHRF/sXi2f3Dm8bAa4=' 'sha256-/GyZslZ+e6GkCFGHfslSoF3DG6WTdbskVuycziLxWnw=' 'sha256-YTI0//5D966rkWaUQfCedEx/z9fRpzH2Rs81HpO5qO8=' 'sha256-k7i3gHVZplkIXJJtGJOJZWYhHbEW41Y5BZiZeVmDKgQ=' 'sha256-vtWvmGBIFcVWglJCXb/xFq24dhru28+va3yoDjbwa1c=' 'sha256-u+O5FzBEYzZs9xxYHcYV0uuFQK7x7rJgVKIkq/6X5as=' 'sha256-DP/oa9ua2gDGAOwp9r/dhQ3G+5cVqQO3Kju1kdPvWMM=' 'sha256-xyfw2Pv2zpIZBbtDn5diZSv48V8BIHY3zxK5/H23aQo=' 'sha256-lDyGXynQZswD/tsNDBAKUJx8WO0fJdiRHvmRj4lwr2g=' 'sha256-WoGM0KkUdY4Ieulnc8YUxppGWHyvNneDx9Bpv86i/i4=' 'sha256-9TrB4PK7NJ3bkLlWtwzSWU6EZOavZz0OJX4jzwthXc8=' 'sha256-sLt6borUWqd7o8bpaRrL/k5zIU9b/hKH1/+GKSTFjZM=' 'sha256-TI3ddno173MPwX0Et+clAt5jSo1H0I77/bANc4dKw9A=' 'sha256-BInGpWhhhFRZ/7s/zMW52TeYz2r7Lea6zu9VDKjx0Rg=' 'sha256-/02SRWVAtJBIraXtfzyqhIygux6qOekY/ufIAAILIYI=' 'sha256-uke+GOeKYGQ+wpY8dl41cmWlm4UpZ5f/K3iaALHZE18=' 'sha256-OZJZFMrWtnan3Tm5egAvb4GiokIe3R4gQcfvkICF5dc=' 'sha256-Rk/BAPj8XQL6ZxYC2zyHv+CmqBwIeA8jR0llHa0hnqo=' 'sha256-6+wYGgLY9WloSJo/vmF0JkViXFCun5eA0I1IzzRXQEQ=' 'sha256-3NdMr9/pgn9r6wkw2+RFNN+Zy/W4AHJaRp/NruPZtLE=' 'sha256-31JKtJAEgrPqazH8z+8ia4DgCph2X22MOXdIc1slWgo=' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        },
+        {
+          "path": "/*",
+          "name": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "path": "/*",
+          "name": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "path": "/*",
+          "name": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "path": "/*",
+          "name": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "path": "/*",
+          "name": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "path": "/assets/*",
+          "name": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}
