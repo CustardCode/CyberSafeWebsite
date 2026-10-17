@@ -1,79 +1,57 @@
-# Deployment and GoDaddy domain connection
+# CyberSafe SW deployment
 
-For the actual GitHub/Netlify project and current launch status, read `LAUNCH-STATUS.md` first. Josh has authorised publication and the necessary website DNS changes; the older approval wording below describes the original pre-launch preparation.
+The production website is https://cybersafesw.com/. GitHub repository: https://github.com/CustardCode/CyberSafeWebsite, branch main. Render builds and serves the current site; GoDaddy manages registration, DNS and Microsoft365 email. Read LAUNCH-STATUS.md for the latest verification and any outstanding certificate work.
 
-## Recommended host
+## Updating the website
 
-**Netlify**, using the static `dist/` output plus the included serverless contact function. This fits the site's static pages, clean URLs, HTTPS, security headers, Git deployments and rollback requirements without a server to maintain. Resend is the proposed email-delivery service; Josh must confirm the actual recipient and sender. Pricing and account limits must be checked when choosing a plan.
+Edit src/ and public/assets/ on a branch. Legacy root index.html, style.css, script.js and images/ are the old site retained for history.
 
-Reference documentation: [Netlify Functions](https://docs.netlify.com/build/functions/overview/), [function API and rate limits](https://docs.netlify.com/build/functions/api/), [Resend email API](https://resend.com/docs/api-reference/emails/send-email). These support the integration prepared here; no account has been created or configured.
+Run these checks with Node 24 or later:
 
-## 1. Review and approve publication
+```
+node scripts/build.ts
+node scripts/check.mjs
+node --test tests/contact.test.mjs
+```
 
-Complete the launch checklist first. Publishing to a provider URL is still a production deployment, even before connecting the domain. This brief requires Josh's approval before publishing. Nothing here authorises live DNS changes.
+The build regenerates render.yaml, including the security-policy hashes for the generated page metadata. Include render.yaml in the same commit whenever it changes. No package installation is required. Inspect affected visual pages at desktop and phone widths, open a pull request and merge the reviewed change into main. Render automatically deploys main; confirm the resulting successful deployment and the live page. Netlify remains a fallback copy, not the custom-domain host.
 
-## 2. Deploy the code after approval
+## Render configuration
 
-Create a Git repository for the contents of this project directory, including `public/`, `src/`, scripts, the function, documentation and the prebuilt PDF/PNGs. Keep `.env` files out of Git. Connect that repository to an approved Netlify account.
+- Static site: cybersafesw, service srv-db9cqsqjnfac73bqela0.
+- Dashboard: https://dashboard.render.com/static/srv-db9cqsqjnfac73bqela0
+- Blueprint: CyberSafe SW, exs-db9cut2jnfac73bqr7q0, linked to render.yaml on main, automatic sync enabled.
+- Build: node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs
+- Publish directory: dist. Keep the root directory blank.
+- NODE_VERSION=24; SKIP_INSTALL_DEPS=true; SITE_HOST=Render.
+- Auto-deploy: On Commit. Blueprint updates also apply the managed domain and header settings.
+- The existing security headers and asset cache rule are declared in render.yaml. Netlify-style dist/_headers alone is not sufficient on Render.
+- Keep actual404 behavior; do not add a catch-all rewrite to index.html.
+- The default fallback URL is https://cybersafesw.onrender.com/.
 
-Settings are in `netlify.toml`:
+For rollback, use the Render service's deployment history to redeploy a previously successful source revision, or revert the relevant GitHub commit through a reviewable pull request. DNS and environment settings are separate and require their own review. Do not delete the archived old-source branch.
 
-- Node version: **24**
-- Build command: `node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs`
-- Publish directory: `dist`
-- Functions directory: `netlify/functions`
+## GoDaddy DNS
 
-Do not add a catch-all rewrite to `index.html`: this is a multipage site, and missing URLs must return 404. The generated `404.html` is the custom error page. Verify clean routes and slash normalisation on the provider before launching.
+The website records saved on 17 October 2026 are:
 
-For a static-only alternate host, upload `dist/`, configure clean routes and the actual 404 response, and translate `_headers` into that provider's header configuration. The Netlify contact function must be replaced or hosted separately; keep `contactEnabled:false` until that works. A drag-and-drop upload of only `dist/` does **not** deploy the server-side function.
+| Type | Name | Value |
+| --- | --- | --- |
+| A | @ | 216.24.57.1 |
+| CNAME | www | cybersafesw.onrender.com |
 
-## 3. Connect cybersafesw.com in GoDaddy
+The former apex A records 75.2.60.5 and 99.83.190.102 and former www Netlify target have been replaced. Do not restore them. Keep ns13.domaincontrol.com and ns14.domaincontrol.com nameservers, Microsoft365 MX, SPF, DMARC and other email/service records intact. Do not transfer the domain, replace nameservers, buy services or change subscriptions without Josh's approval.
 
-Add the domain in the host's domain-management screen. Choose **cybersafesw.com** as the primary, non-www domain; redirect **www.cybersafesw.com** to it.
+For a later host migration, first back up the current records and obtain that host's exact instructions. Verify apex/www certificates, HTTP-to-HTTPS and www-to-apex redirects after any switch. A valid primary address does not prove that www is ready.
 
-Get the **exact current DNS values from the selected host's instructions for this site**. Depending on the host, the apex may use A records, an ALIAS/ANAME equivalent or host-managed DNS; www commonly uses a CNAME. GoDaddy's supported record types and the provider's requirements must be checked at the time of setup. Do not invent or reuse a generic DNS target.
+## Email enquiries
 
-Before editing, export or record existing DNS. Preserve any existing MX, SPF, DKIM, DMARC and service verification records. Make only the approved website record changes. Nameserver replacement is optional and must not be done without a deliberate review of all current services. Do not transfer the domain.
+Josh has tested the contact@cybersafesw.com mailbox receiving and sending with the CyberSafe SW display name. The website uses mailto links. The quote form validates fields and prepares an email in the visitor's chosen email app; the visitor must review and send it there. Save enquiry draft downloads a local text copy. The website itself does not transmit form contents or promise delivery.
 
-After propagation, verify both domain variants and their redirect behaviour. Obtain a certificate through the host's HTTPS provisioning; confirm the correct domain names are covered and HTTP redirects to HTTPS. `Strict-Transport-Security` is supplied for HTTPS responses; the local HTTP preview intentionally omits it.
+Keep emailReady:true and contactEnabled:false. The prepared netlify/functions/contact.mjs Resend integration is dormant and is not deployed as a function by this Render static site. Enabling server-side enquiries in future requires an explicitly configured backend, private provider credentials, privacy updates and a real inbox-arrival/reply-to test before changing the switch. Do not expose API keys in the static site or change existing mailbox MX records for a sending service.
 
-## 4. Activate real contact delivery
+## Search and measurement
 
-1. Finish setting up **contact@cybersafesw.com** in GoDaddy and verify that it can send, receive and reply to messages from another provider. This is the owner-selected recipient; mailbox verification is still pending.
-2. Create the chosen sending-provider account. For Resend, use a dedicated sending subdomain such as **forms.cybersafesw.com** and verify it using the exact records supplied by Resend. Keep receiving email with GoDaddy. Do not replace the root domain's existing mailbox MX records or enable Resend receiving for the main domain. A sending-provider MX record at a separate subdomain serves a different purpose from your main inbox's MX record.
-3. Set server-side environment variables: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `SITE_ORIGIN`. `SITE_ORIGIN` must equal the precise HTTPS origin visitors submit from, normally `https://cybersafesw.com`.
-4. Confirm the native function's rate limit is available/enforced on the selected plan: five requests per 60 seconds per IP/domain. Honeypot and submission timing checks are also implemented. Review stronger bot controls if real abuse warrants them.
-5. Use a private or restricted test deployment approved by Josh. Set its exact origin for that environment. Do not weaken production origin checks to accept arbitrary sites.
-6. Test a genuine enquiry with controlled information. Verify provider acceptance, arrival in the recipient inbox, reply-to behaviour and spam placement. Confirm provider failure never shows success.
-7. Test retry behaviour. The same UUID is passed to Resend as an idempotency key, protecting against duplicate requests within the provider's supported idempotency window. Reloading the page starts a new enquiry. There is no durable enquiry database.
-8. Set `business.contactEnabled:true` in `src/config.ts`, rebuild, deploy the approved source, and re-test. The UI only records `generate_lead` after a genuine success response.
-9. Review the privacy policy to reflect actual hosting, email processing, retention and assessment evidence handling. Do not enable collection before this review.
+Canonical URLs and the 20-page sitemap use https://cybersafesw.com. Sitemap: https://cybersafesw.com/sitemap.xml. Robots: https://cybersafesw.com/robots.txt.
 
-Suggested actual values after domain verification:
-
-| Environment variable | Value |
-| --- | --- |
-| `RESEND_API_KEY` | The sending API key created in Resend; store privately in Netlify with Functions scope |
-| `CONTACT_TO_EMAIL` | `contact@cybersafesw.com` |
-| `CONTACT_FROM_EMAIL` | `CyberSafe SW Website <enquiries@forms.cybersafesw.com>` only after verifying that sending subdomain |
-| `SITE_ORIGIN` | `https://cybersafesw.com` |
-
-The sender is an application sending identity, not an additional GoDaddy mailbox you must purchase. The enquiry sets the visitor's email as reply-to. The website already displays the intended public email; set `emailReady:true` only when that inbox is verified. Form sending remains a separate `contactEnabled` switch.
-
-The function returns 503 when required email settings are missing. It sends a plain-text email, does not intentionally log personal data, and never exposes the API key to the frontend. Successful acceptance by Resend does not guarantee eventual inbox delivery; provider delivery events should be monitored separately.
-
-## 5. Measurement and Search Console
-
-Create a GA4 property only if desired. Set its real `G-...` measurement ID in `src/config.ts`; update privacy disclosures and test consent before publishing that change. Analytics remains off until permission is granted. Configure `generate_lead` as a key event and check `click_phone`, `click_email`, `view_checkup_service` and `select_service` as appropriate. A phone click is an interaction, not proof of a completed call. Enhanced Measurement settings must be reviewed so unwanted collection is not introduced.
-
-For Search Console, add a domain property and use Google's supplied TXT verification record in GoDaddy. Preserve existing TXT records. Submit **https://cybersafesw.com/sitemap.xml** after the approved domain is live and HTTPS works. Inspect the homepage, flagship and both audience pages. Reference: [Google's sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
-
-## 6. Live acceptance checks
-
-Check every route, the sitemap and robots.txt; confirm non-www canonical URLs, successful 200 responses, real 404 responses, www redirects, HTTPS and security headers. Verify PDF/PNG MIME types, the report download, mobile menu, keyboard access, reduced motion, telephone links and all quote prefills. Check form delivery and failure, consent and events. Run deployed Lighthouse/mobile testing; local checks do not establish real-user Core Web Vitals.
-
-If a private preview is exposed before launch, keep it access-restricted or apply preview-specific noindex/X-Robots-Tag. The production build deliberately has no accidental noindex on its 20 content pages. Robots rules alone do not provide access control.
-
-## 7. Rollback
-
-Retain the previous successful deployment and source commit. If a problem appears, use the host's deployment rollback to restore that version; do not change DNS to fix a code error. Verify that the restored version includes its compatible function and assets. Review environment values separately because source rollback may not roll them back. Record what failed, correct it locally and re-test before a new approved deployment.
+Search Console verification and sitemap submission still require the owner's Google account. Use the exact Google TXT verification value without replacing other TXT records. No indexing claim should be made before Google processes the site. Analytics remains disabled until Josh requests it; update privacy disclosures and verify consent before enabling a real measurement ID.

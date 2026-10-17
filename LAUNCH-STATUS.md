@@ -1,51 +1,37 @@
-# CyberSafe SW launch status — 15 October 2026
+# CyberSafe SW launch status — 17 October 2026
 
-This is the current deployment record. Earlier pre-launch notes describe preparation and are superseded by this record where deployment status differs.
+The approved website is live at https://cybersafesw.com/. This record supersedes earlier Netlify/domain-release and mailbox-setup notes.
 
-## Verified
+## Verified live
 
-- GitHub source: https://github.com/CustardCode/CyberSafeWebsite
-- Production branch: `main`.
-- Approved-site pull request: https://github.com/CustardCode/CyberSafeWebsite/pull/1 (merged).
-- Initial production source commit: `2cc19073a9a7def51e7a6a564791f5e889f9be9b`.
-- Old source preserved on `archive/pre-launch-2026-10-15`, at `844f7c9bd14bd5172ee81eba13b4a1bd26e8d06b`.
-- Netlify project: `cybersafesw`, team `custardcode` (Cyber Safe SW).
-- Project ID: `7b152f94-3fbb-415b-ae2f-febd4b6ee674`.
-- Dashboard: https://app.netlify.com/projects/cybersafesw/overview
-- Public hosting URL: https://cybersafesw.netlify.app/
-- First successful deployment: `6ad08493d817d5af7808d863`.
-- Node 24, build/validation/contact tests, `dist` publishing directory, `netlify/functions` function directory.
-- Production is public; deploy previews are private.
-- Optional Netlify promotional badge is disabled.
-- Hosted checks pass for all 20 content pages, correct canonical domain, one h1 per page, sitemap, robots.txt, CSP/HSTS, real 404, and the deployed function's method rejection.
-- Downloaded PDF matches the approved 144,620-byte local PDF exactly.
-- Live desktop homepage and report were inspected. Earlier local responsive/PDF QA remains in QA-REPORT.md. The in-app browser's viewport override did not change its actual 1280×720 viewport, so a new live mobile-width check has not been confirmed.
-- No private environment files or credentials were uploaded. All 38 initial source/assets were checked against local Git blob hashes before committing.
+- Public homepage opens at the real domain in the browser, with the approved design.
+- Both cybersafesw.com and www.cybersafesw.com are verified in Render and have issued certificates.
+- HTTP apex, HTTP www and HTTPS www redirect to https://cybersafesw.com/.
+- All 20 content pages return200 with the expected canonical domain, one h1 and security headers. A nonexistent URL returns404.
+- Sitemap and robots point to the correct domain. The branded sample PDF is 144,620 bytes and matches the approved file exactly.
+- Public email links target mailto:contact@cybersafesw.com; the quote form prepares a draft for the visitor to send. Phone 0409 224 814 links to tel:+61409224814.
+- Josh has tested the Microsoft365 mailbox receiving and sending as CyberSafe SW <contact@cybersafesw.com>.
+- GoDaddy website DNS: A @ → 216.24.57.1; CNAME www → cybersafesw.onrender.com. Public resolvers 1.1.1.1 and 8.8.8.8 agree.
+- Microsoft365 MX, GoDaddy nameservers, SPF and existing email/service records are retained.
+- Live verification used fresh public DNS with normal TLS validation because the local system DNS cache still retained old hosting addresses. Some visitors may continue to see a cached old result until its TTL expires.
+- Desktop browser inspected at actual 1280 × 720. Earlier responsive/PDF QA is recorded in QA-REPORT.md. A new live phone-width check remains unconfirmed because the browser viewport override did not apply.
 
-## Domain connection pending
+## Hosting and source
 
-Netlify rejected adding `cybersafesw.com`: **Another project is already using this domain**. The domain's public www record points to `dynamic-lebkuchen-41a54e.netlify.app`. That project is not accessible from the connected account, and Josh does not recognise it.
+GitHub: https://github.com/CustardCode/CyberSafeWebsite, branch main. PRs 1–5 are merged; the verified launch source is 803490419aff95a27af3aa7a1db1c13811d31951. The archived previous site remains on archive/pre-launch-2026-10-15.
 
-A public DNS snapshot was saved locally before changes. It is not a full GoDaddy zone export. Observed apex A records were `75.2.60.5` and `99.83.190.102`; nameservers remain `ns13.domaincontrol.com` and `ns14.domaincontrol.com`. Microsoft 365 mail MX is already present. No DNS changes have been made by this launch workflow.
+Render static service: srv-db9cqsqjnfac73bqela0. Dashboard: https://dashboard.render.com/static/srv-db9cqsqjnfac73bqela0. Default hosting URL: https://cybersafesw.onrender.com/. Verified deployment: dep-db9cuuiog99s738l3p5g.
 
-Josh authorised a Netlify domain-release support request. Netlify's support form requires a new, short-lived TXT proof before submission. Josh added the exact TXT record. Netlify confirmed ownership, the release request was submitted, and Josh replied to its acknowledgement. Release is still pending; the current UI continues to reject adding the domain. Use the live form's exact current record; do not invent a ticket number or assume the domain has been released.
+Render Blueprint CyberSafe SW: exs-db9cut2jnfac73bqr7q0, associated with that service and render.yaml on main. Automatic GitHub deployment is On Commit, and automatic Blueprint sync applies tracked configuration. Node 24 builds dist without external dependencies. SITE_HOST=Render produces accurate privacy wording. The generated render.yaml preserves CSP hashes and all seven security/cache header rules.
 
-After release, add apex/www to this project, obtain exact DNS instructions from the project, preserve mailbox/authentication DNS, choose apex as primary and confirm the www redirect and HTTPS certificate. The earlier custom domain had a certificate-name mismatch; do not bypass TLS validation.
+Netlify remains a fallback at https://cybersafesw.netlify.app/. Its old custom-domain association is no longer needed for launch. Domain-release ticket #1144599 can remain with support; do not move working DNS back to the old Netlify targets if a reply arrives. No domain transfer or nameserver change was made.
 
-## Email and form pending
+## Future changes
 
-GoDaddy screenshots confirm Microsoft 365 Email Essentials with Security, primary `joshua@cybersafesw.com`, and `contact@cybersafesw.com` as an alias routing into that mailbox. Josh tested receiving and replying successfully; the reply used the Joshua primary address and landed in the recipient’s Junk folder. He then requested Contact as the primary address and CyberSafe SW as the display name; GoDaddy is processing that change, and the new sign-in is not yet confirmed. Recovery/MFA and outgoing deliverability still need review. Josh asked us to proceed with mailto contact while the update processes.
+Ask Codex for the change in this GitHub project. Edit src/ and public/assets/ on a branch, run build/check/contact tests, include regenerated render.yaml, inspect affected pages and create a pull request. Merge the reviewed change to main and verify the resulting Render deployment and real website. Legacy root HTML/CSS/JS belongs to the retained old site.
 
-`emailReady:true` reflects the owner-tested receiving address. Email links target `mailto:contact@cybersafesw.com`; the enquiry form opens a prefilled email draft and explicitly requires the visitor to send it in their email app. The website does not report delivery. `contactEnabled:false` keeps server-side Resend sending inactive. Phone contact works throughout. Resend is prepared in code but no sending account/domain/API key has been configured. Do not enable delivery until real arrival and reply-to are tested. See DEPLOYMENT.md. Optional analytics is disabled; Search Console verification/submission is pending the custom-domain launch.
+Use Render deployment history or a reviewed GitHub revert for code rollback. DNS/environment settings need separate review. See DEPLOYMENT.md for configuration and email boundaries.
 
-## Future updates and rollback
+## Optional follow-up
 
-1. Josh describes the change to Codex in this project.
-2. Codex updates the current source in `src/` and `public/assets/`, runs the appropriate checks, and opens a pull request. Legacy root HTML/CSS/JS are retained old-site files.
-3. Review the Netlify Deploy Preview linked to the pull request. It requires the appropriate Netlify access.
-4. Merge the approved change to `main`; the GitHub connection triggers the production build and deployment.
-5. Verify the resulting production deployment before reporting success.
-
-For rollback, open the project's Deploys activity, choose a previously successful production deploy and use Netlify's publish/rollback control. Environment settings and DNS need separate review; code rollback does not restore them. Preserve the prior successful deployment and source history.
-
-No GoDaddy hosting purchase, domain transfer or nameserver replacement is required for this Netlify setup.
+Search Console ownership verification and sitemap submission still require Josh's Google account. Analytics remains off. contactEnabled:false intentionally keeps server-side delivery disabled; mailto enquiries do not require Resend. Do not enable that dormant function on a static host without a configured backend and real inbox-arrival test.
