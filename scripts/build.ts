@@ -41,5 +41,12 @@ await writeFile(resolve(dist,'robots.txt'),`User-agent: *\nAllow: /\nSitemap: ${
 const csp=`default-src 'self'; script-src 'self' ${[...hashes].join(' ')} https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests`;
 await writeFile(resolve(dist,'_headers'),`/*\n  Content-Security-Policy: ${csp}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Strict-Transport-Security: max-age=31536000\n/assets/*\n  Cache-Control: public, max-age=3600\n`);
 await writeFile(resolve(root,'build-manifest.json'),JSON.stringify({pages:pages.map(({path,title,noindex})=>({path,title,indexable:!noindex})),csp},null,2));
+// JSON is valid YAML. Keep Render's domain and header configuration in source control.
+await writeFile(resolve(root,'render.yaml'),JSON.stringify({services:[{
+ type:'web',name:'cybersafesw',runtime:'static',repo:'https://github.com/CustardCode/CyberSafeWebsite',branch:'main',
+ buildCommand:'node scripts/build.ts && node scripts/check.mjs && node --test tests/contact.test.mjs',staticPublishPath:'dist',
+ autoDeployTrigger:'commit',domains:['cybersafesw.com'],
+ envVars:[{key:'NODE_VERSION',value:'24'},{key:'SKIP_INSTALL_DEPS',value:'true'},{key:'SITE_HOST',value:'Render'}],
+ headers:[...Object.entries({'Content-Security-Policy':csp,'X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'strict-origin-when-cross-origin','Permissions-Policy':'camera=(), microphone=(), geolocation=()','Strict-Transport-Security':'max-age=31536000'}).map(([name,value])=>({path:'/*',name,value})),{path:'/assets/*',name:'Cache-Control',value:'public, max-age=3600'}]
+}]},null,2)+'\n');
 console.log(`Built ${pages.length} static pages, sitemap, robots, SVG branding and security headers in ${dist}`);
-
