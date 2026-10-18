@@ -1,0 +1,6 @@
+/* Loaded only when JavaScript is disabled; avoids changing the first painted layout. */
+@media(max-width:900px){
+ .header-inner{height:auto;flex-wrap:wrap;padding-block:18px}
+ .menu-toggle{display:none}
+ .header nav{display:flex;position:static;width:100%;flex-wrap:wrap;padding:0;box-shadow:none;border:0;max-height:none}
+}
