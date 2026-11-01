@@ -1018,7 +1018,7 @@ img {
 .meet-grid .plain-link {
   margin-top:22px;
 }
-.josh-panel {
+.about-panel {
   position:relative;
   min-height:405px;
   background:var(--navy);
@@ -1030,7 +1030,7 @@ img {
   border-radius:6px;
   overflow:hidden;
 }
-.josh-panel:before,.josh-panel:after {
+.about-panel:before,.about-panel:after {
   content:'';
   position:absolute;
   width:350px;
@@ -1040,14 +1040,14 @@ img {
   top:5%;
   left:29%;
 }
-.josh-panel:after {
+.about-panel:after {
   width:230px;
   height:230px;
   top:20%;
   left:10%;
   border-style:dashed;
 }
-.josh-monogram {
+.about-monogram {
   position:absolute;
   top:6%;
   left:16%;
@@ -1055,16 +1055,16 @@ img {
   color:#cfebdf;
   z-index:1;
 }
-.josh-monogram>span {
+.about-monogram>span {
   color:var(--teal);
 }
-.josh-panel strong {
+.about-panel strong {
   display:block;
   font:34px/1.2 var(--serif);
   position:relative;
   z-index:2;
 }
-.josh-panel div>span {
+.about-panel div>span {
   font-size:8px;
   letter-spacing:1.6px;
 }
@@ -2085,7 +2085,7 @@ img {
   .meet-grid {
     gap:40px;
   }
-  .josh-panel {
+  .about-panel {
     min-height:380px;
   }
   .faq-grid {
@@ -2484,26 +2484,26 @@ img {
     grid-template-columns:1fr;
     gap:36px;
   }
-  .josh-panel {
+  .about-panel {
     min-height:300px;
     max-width:500px;
     width:100%;
     padding:25px;
   }
-  .josh-monogram {
+  .about-monogram {
     font-size:160px;
     top:0;
     left:13%;
   }
-  .josh-panel:before {
+  .about-panel:before {
     top:-50px;
     left:45%;
   }
-  .josh-panel:after {
+  .about-panel:after {
     top:0;
     left:20%;
   }
-  .josh-panel strong {
+  .about-panel strong {
     font-size:29px;
   }
   .local-stamp {
@@ -3050,3 +3050,8 @@ h1,h2,h3 { text-wrap:balance; }
 @media(prefers-reduced-motion:reduce) {
   *,*:before,*:after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
 }
+
+/* Business identity replaces the personal initial in the existing About panels. */
+.about-brandmark { position:absolute; top:12%; left:16%; width:130px; color:#cfebdf; z-index:1; }
+.about-brandmark svg { width:100%; height:auto; }
+@media(max-width:700px) { .about-brandmark { width:108px; top:10%; left:13%; } }
