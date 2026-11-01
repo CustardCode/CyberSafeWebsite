@@ -1,5 +1,5 @@
 export const business = {
-  name: 'CyberSafe SW', owner:'Josh', domain:'https://cybersafesw.com',
+  name: 'CyberSafe SW', domain:'https://cybersafesw.com',
   phone:'0409 224 814', phoneHref:'tel:+61409224814', email:'contact@cybersafesw.com', emailReady:true,
   location:'Bunbury, South West Western Australia', serviceAreas:['Bunbury','South West WA'],
   // Enable only after configuring and testing the deployed server-side email function.
@@ -9,7 +9,7 @@ export const business = {
 };
 export const navigation = [
   {label:'Services',href:'/services'}, {label:'How it works',href:'/how-it-works'},
-  {label:'Sample report',href:'/sample-report'}, {label:'Meet Josh',href:'/about'},
+  {label:'Sample report',href:'/sample-report'}, {label:'About Us',href:'/about'},
 ];
 export const services = [
   {slug:'two-factor-authentication',name:'Two-Factor Authentication Setup',short:'Safer account sign-ins',icon:'key',headline:'An extra layer of protection for your accounts.',description:'Make a stolen password less useful. Get help with an extra sign-in check and sensible recovery options.',areas:['Email and social media sign-in protection','Authenticator options on supported accounts','Recovery codes and backup access'],why:'A password can be exposed or reused without you knowing. Two-factor authentication adds another check when you sign in, making it harder for someone else to use your password.',scope:'We review supported accounts with you, help enable a suitable sign-in method, and explain how to retain access if your phone is lost. Available options depend on the account provider.',next:'Bring the devices you normally use to sign in. You enter your own credentials; never send passwords through our enquiry form.'},
